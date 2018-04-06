@@ -24,6 +24,7 @@ $(function(){
             });
         },
         onAfterEdit : function(node){
+        	alert("onAfterEdit"+JSON.stringify(node));
         	var _tree = $(this);
         	if(node.id == 0){
         		// 新增节点
@@ -62,6 +63,9 @@ function menuHandler(item){
 	}else if(item.name === "delete"){
 		$.messager.confirm('确认','确定删除名为 '+node.text+' 的分类吗？',function(r){
 			if(r){
+				alert("delete"+JSON.stringify(node));
+				//alert(node.parentId+"___"+node.id);
+				//注意了--node.parentId这个值取不到;
 				$.post("/content/category/delete/",{parentId:node.parentId,id:node.id},function(){
 					tree.tree("remove",node.target);
 				});	
