@@ -67,10 +67,13 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 	}
 
 	@Override
-	public TaotaoResult deleteContentCategory(long parentId, long id) {
-		/*//删除当前节点
+	public TaotaoResult deleteContentCategory(long id) {
+		//根据节点获取父节点
+		TbContentCategory contentCategory = contentCategoryMapper.selectByPrimaryKey(id);
+		Long parentId = contentCategory.getParentId();
+		//删除当前节点
 		contentCategoryMapper.deleteByPrimaryKey(id);
-		try {
+		//try {
 			//判断父节点还有子节点没有
 			TbContentCategoryExample example = new TbContentCategoryExample();
 			Criteria criteria = example.createCriteria();
@@ -84,7 +87,7 @@ public class ContentCategoryServiceImpl implements ContentCategoryService {
 				//更新父节点记录--数据库
 				contentCategoryMapper.updateByPrimaryKey(parentCat);
 			}
-		}catch(Exception e) {
+		/*}catch(Exception e) {
 			System.out.println(e.toString());
 			//查出父节点的数据记录
 			TbContentCategory parentCat = contentCategoryMapper.selectByPrimaryKey(parentId);

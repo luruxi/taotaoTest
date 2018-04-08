@@ -34,11 +34,10 @@ public class ContentCategoryController {
 	
 	@RequestMapping("/delete")
 	@ResponseBody
-	public TaotaoResult deleteCategory(long parentId,long id) {//parentId有时候有值，有时候undefined（就剩下一个子节点，还要删除这个节点时候）
-		System.out.println("parentId:"+parentId+"--id:"+id);
-//		TaotaoResult result = contentCategoryService.deleteContentCategory(parentId, id);
-//		return result;
-		return TaotaoResult.ok();
+	public TaotaoResult deleteCategory(long id) {//parentId有时候有值，有时候undefined（就剩下一个子节点，还要删除这个节点时候）
+//		System.out.println("parentId:"+parentId+"--id:"+id);
+		TaotaoResult result = contentCategoryService.deleteContentCategory(id);
+		return result;
 	}
 	
 	@RequestMapping("/update")

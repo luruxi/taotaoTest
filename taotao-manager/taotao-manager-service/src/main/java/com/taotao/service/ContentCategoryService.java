@@ -8,6 +8,6 @@ import com.taotao.common.pojo.TaotaoResult;
 public interface ContentCategoryService {
 	List<EuiTreeNode> getCategoryList(long parentId);
 	TaotaoResult insertContentCategory(long parentId,String name);
-	TaotaoResult deleteContentCategory(long parentId,long id);
+	TaotaoResult deleteContentCategory(long id);
 	TaotaoResult updateContentCategory(long id,String name);
 }
