@@ -99,7 +99,7 @@ public class HttpClientTest {
 		HttpPost post = new HttpPost("http://localhost:9092/httpclient/post2.html");
 		//创建请求参数--创建entity--模拟表单
 		List<NameValuePair> kvlist = new ArrayList<>();
-		kvlist.add(new BasicNameValuePair("username", "卢司洋"));
+		kvlist.add(new BasicNameValuePair("username", "lsy"));
 		kvlist.add(new BasicNameValuePair("password", "lsy123"));
 		//将集合转成（包装成）实体entity
 		StringEntity postEntity = new UrlEncodedFormEntity(kvlist,"utf-8");

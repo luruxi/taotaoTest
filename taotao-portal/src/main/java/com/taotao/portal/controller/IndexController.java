@@ -3,17 +3,25 @@ package com.taotao.portal.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.taotao.common.pojo.TaotaoResult;
+import com.taotao.portal.service.ContentService;
 
 @Controller
 public class IndexController {
+	@Autowired
+	private ContentService contentService;
+	
 	@RequestMapping(value="/index")
-	public String showIndex() {
+	public String showIndex(Model model) {
+		String adJson = contentService.getContentService();
+		model.addAttribute("ad1", adJson);
 		return "index";
 	}
 	
