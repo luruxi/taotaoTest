@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,5 +39,15 @@ public class IndexController {
 		map.put("username", username);
 		map.put("password", password);
 		return map.toString();
+	}
+	
+	@RequestMapping(value="/httpclient/post3" , method = RequestMethod.POST , produces = MediaType.APPLICATION_JSON_VALUE+";chartset=utf-8")
+	@ResponseBody
+	public TaotaoResult testPost3(String username,String password) {
+		HashMap map = new HashMap<>();
+		map.put("username", username);
+		map.put("password", password);
+		System.out.println(map.toString());
+		return TaotaoResult.ok(map);
 	}
 }
