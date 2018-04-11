@@ -80,7 +80,7 @@ public class JedisTest {
 		//读取spring的配置文件applicationContext
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
 		//从配置文件获取对象jedisPool
-		JedisPool jedisPool = (JedisPool) applicationContext.getBean("jedisClient");
+		JedisPool jedisPool = (JedisPool) applicationContext.getBean("redisClient");
 		//从连接池jedisPool对象中取出jedis对象
 		Jedis jedis = jedisPool.getResource();
 		//设置jedis参数
@@ -101,7 +101,7 @@ public class JedisTest {
 		//读取spring的配置文件applicationContext
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
 		//从配置文件获取对象jedisCluster
-		JedisCluster jedisCluster = (JedisCluster) applicationContext.getBean("jedisClient");
+		JedisCluster jedisCluster = (JedisCluster) applicationContext.getBean("redisClient");
 		//设置集群jedis参数
 		jedisCluster.set("key4", "4000");
 		String string = jedisCluster.get("key4");

@@ -35,14 +35,16 @@
 	</bean>
 	
 	<!-- 扫描包，加载单机版jedis参数配置连接池配置，ip和端口，实现redis缓存 -->
-	<bean id="jedisClient" class="redis.clients.jedis.JedisPool">
+	<bean id="redisClient" class="redis.clients.jedis.JedisPool">
 		<constructor-arg name="poolConfig" ref="jedisPoolConfig"></constructor-arg>
 		<constructor-arg name="host" value="192.168.159.129"></constructor-arg>
 		<constructor-arg name="port" value="6379"></constructor-arg>
 	</bean>
+	<!-- 增加单机版实现类的地址 -->
+	<bean id="jedisClientSingle" class="com.taotao.rest.dao.impl.JedisClientSingle"></bean>
 	
 	<!-- 集群版配置 -->
-	<!-- <bean id="jedisClient" class="redis.clients.jedis.JedisCluster">
+	<!-- <bean id="redisClient" class="redis.clients.jedis.JedisCluster">
 		<constructor-arg name="nodes">
 			<set>
 				<bean class="redis.clients.jedis.HostAndPort">
@@ -73,4 +75,6 @@
 		</constructor-arg>
 		<constructor-arg name="poolConfig" ref="jedisPoolConfig"></constructor-arg>
 	</bean> -->
+	<!-- 增加集群版实现类的地址 -->
+	<!-- <bean id="jedisClientCluster" class="com.taotao.rest.dao.impl.JedisClientCluster"></bean> -->
 </beans>
