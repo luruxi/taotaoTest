@@ -85,4 +85,24 @@ public class JedisClientSingle implements JedisClient {
 		return result;
 	}
 
+	@Override
+	public long del(String key) {
+		//从连接池jedisPool对象中取出jedis对象
+		Jedis jedis = jedisPool.getResource();
+		long result = jedis.del(key);
+		//关闭jedis
+		jedis.close();
+		return result;
+	}
+
+	@Override
+	public long hdel(String hkey, String key) {
+		//从连接池jedisPool对象中取出jedis对象
+		Jedis jedis = jedisPool.getResource();
+		long result = jedis.hdel(hkey,key);
+		//关闭jedis
+		jedis.close();
+		return result;
+	}
+
 }
