@@ -1,5 +1,7 @@
 package com.taotao.search.pojo;
-
+/*
+ * 商品信息实体类
+ */
 public class Item {
 	private long id;
 	private String title;

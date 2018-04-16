@@ -8,5 +8,9 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 	<!-- 扫描包，加载service实现类 -->
-	<context:component-scan base-package="com.taotao.search.service"></context:component-scan>
+	<!-- <context:component-scan base-package="com.taotao.search.service"></context:component-scan> -->
+	<context:component-scan base-package="com.taotao.search">
+		<!-- 不包含controller包，这里涉及到spring和springMVC子父级容器问题，会重复加载无效资料 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
 </beans>
