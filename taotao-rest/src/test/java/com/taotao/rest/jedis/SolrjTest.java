@@ -61,11 +61,15 @@ public class SolrjTest {
 		//新建查询对象
 		SolrQuery query = new SolrQuery();
 		//设置查询条件
-		query.setQuery("*:*");
+		query.setQuery("*:*");//基础查询条件
+		query.setStart(20);//开始查询条数
+		query.setRows(50);//查出多少条
+		
 		//执行查询
 		QueryResponse response = solrServer.query(query);
 		//从查询结果里取数据
 		SolrDocumentList results = response.getResults();
+		System.out.println("查询记录条数："+results.getNumFound());
 		for (SolrDocument solrDocument : results) {
 			System.out.println(solrDocument.get("id"));
 			System.out.println(solrDocument.get("item_title"));
