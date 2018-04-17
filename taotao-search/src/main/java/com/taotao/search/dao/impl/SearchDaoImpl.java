@@ -43,7 +43,7 @@ public class SearchDaoImpl implements SearchDao {
 		for (SolrDocument solrDocument : solrDocumentList) {
 			//创建商品对象Item
 			Item item = new Item();
-			item.setId((long) solrDocument.get("id"));
+			item.setId(Long.valueOf((String) solrDocument.get("id")));
 			
 			//取高亮显示结果
 			List<String> list = highlighting.get(solrDocument.get("id")).get("item_title");
