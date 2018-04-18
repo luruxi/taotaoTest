@@ -30,7 +30,7 @@ public class SearchServiceImpl implements SearchService {
 			//把字符串转换成java对象
 			//List<SearchResult> list = JsonUtils.jsonToList(json, SearchResult.class);
 			TaotaoResult taotaoResult = TaotaoResult.formatToPojo(json, SearchResult.class);
-			if(taotaoResult.getStatus()==200) {
+			if(taotaoResult != null && taotaoResult.getStatus()==200) {
 				SearchResult result = (SearchResult) taotaoResult.getData();
 				return result;
 			}
