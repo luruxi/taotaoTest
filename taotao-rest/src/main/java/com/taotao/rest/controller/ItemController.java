@@ -18,10 +18,31 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 	
+	/*
+	 * 商品信息
+	 */
 	@RequestMapping("/info/{itemId}")
 	@ResponseBody
 	public TaotaoResult getItemBaseInfo(@PathVariable long itemId) {
 		TaotaoResult result = itemService.getItemBaseInfo(itemId);
+		return result;
+	}
+	/*
+	 * 商品描述
+	 */
+	@RequestMapping("/desc/{itemId}")
+	@ResponseBody
+	public TaotaoResult getItemDesc(@PathVariable long itemId) {
+		TaotaoResult result = itemService.getItemDesc(itemId);
+		return result;
+	}
+	/*
+	 * 商品描述
+	 */
+	@RequestMapping("/param/{itemId}")
+	@ResponseBody
+	public TaotaoResult getItemParam(@PathVariable long itemId) {
+		TaotaoResult result = itemService.getItemParam(itemId);
 		return result;
 	}
 }
