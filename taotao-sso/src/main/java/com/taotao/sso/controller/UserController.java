@@ -91,4 +91,27 @@ public class UserController {
 			return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
 		}
 	}
+	/*
+	 * 通过token获取用户信息，是否过期，更新token过期时间
+	 */
+	@RequestMapping(value="/token/{token}",method=RequestMethod.POST)
+	@ResponseBody
+	public Object getUserByToken(@PathVariable String token,String callback) {
+		TaotaoResult result = null;
+		try {
+			result = userService.getUserByToken(token);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result = TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		//判断是否是跨域请求 
+		if(StringUtils.isBlank(callback)) {//不是跨域
+			return result;
+		}else {
+			MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+			mappingJacksonValue.setJsonpFunction(callback);
+			return mappingJacksonValue;
+		}
+	}
 }
