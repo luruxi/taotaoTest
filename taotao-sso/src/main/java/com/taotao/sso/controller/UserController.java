@@ -1,6 +1,7 @@
 package com.taotao.sso.controller;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Controller;
@@ -9,16 +10,18 @@ import org.springframework.web.bind.annotation.PathVariable;
  * 用户注册参数和用户注册信息数据库校验，需要支持jsonp跨域
  */
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.common.utils.ExceptionUtil;
+import com.taotao.pojo.TbUser;
 import com.taotao.sso.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
 	@Autowired
-	private UserService serService;
+	private UserService userService;
 	@RequestMapping("/check/{param}/{type}")
 	@ResponseBody
 	public Object checkData(@PathVariable String param,@PathVariable Integer type,String callback) {
@@ -45,7 +48,7 @@ public class UserController {
 		}
 		//用户信息校验数据库
 		try {
-			result = serService.checkData(param, type);
+			result = userService.checkData(param, type);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,4 +63,32 @@ public class UserController {
 			return result;
 		}
 	};
+	/*
+	 * 用户注册添加新记录到数据库 
+	 */
+	@RequestMapping(value="/register",method=RequestMethod.POST)
+	@ResponseBody
+	public TaotaoResult createUser(TbUser user) {
+		try {
+			return userService.createUser(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+	}
+	/*
+	 * 用户注册添加新记录到数据库 
+	 */
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	@ResponseBody
+	public TaotaoResult userLogin(String username, String password) {
+		try {
+			return userService.userLogin(username, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+	}
 }
