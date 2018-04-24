@@ -117,7 +117,7 @@
 	var REGISTER={
 		param:{
 			//单点登录系统的url
-			surl:""
+			surl:"http://localhost:5051"
 		},
 		inputcheck:function(){
 				//不能为空检查
