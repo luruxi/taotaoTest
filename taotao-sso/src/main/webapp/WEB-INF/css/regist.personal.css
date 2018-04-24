@@ -199,6 +199,13 @@
     width: 14px;
     left:250px;
 }
+#regist .item-ifo .i-email,.thickbox-form .item-ifo .i-email {
+    background: url("../images/one6.jpg") no-repeat scroll 0 0 transparent;
+    height: 21px;
+    top: 8px;
+    width: 14px;
+    left:250px;
+}
 #regist a.blue:link,#regist a.blue:visited{color:#005AA0;}
 #countDown{position:absolute;top:36px;left:1px;width:470px;}
 #regist #mobileCodeDiv .error,.thickbox-form #mobileCodeDiv .error{right:-265px;width:255px;top:0px;}

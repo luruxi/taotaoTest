@@ -27,7 +27,7 @@
         </ul>
         <div class="extra">
         <span>我已经注册，现在就&nbsp;
-        	<a href="/user/showLogin" class="flk13">登录</a>
+        	<a href="/page/login" class="flk13">登录</a>
         </span>
         </div>
     </div>
@@ -88,6 +88,17 @@
 								id="phone_error"></label>
 						</div>
 					</div>
+					<div class="item" id="demail">
+						<span class="label"><b class="ftx04">*</b>验证邮箱：</span>
+
+						<div class="fl item-ifo">
+							<input type="text" id="email" name="email"
+								class="text" tabindex="4"
+								autocomplete="off" /> <i class="i-email"></i> <label
+								id="email_succeed" class="blank"></label> <label
+								id="email_error"></label>
+						</div>
+					</div>
 					</div>
                 <div class="item item-new">
                     <span class="label">&nbsp;</span>
@@ -136,6 +147,11 @@
 					$("#phone").focus();
 					return false;
 				}
+				if ($("#email").val() == "") {
+					alert("邮箱不能为空");
+					$("#email").focus();
+					return false;
+				}
 				//密码检查
 				if ($("#pwd").val() != $("#pwdRepeat").val()) {
 					alert("确认密码和密码不一致，请重新输入！");
@@ -156,7 +172,18 @@
 	            				url : REGISTER.param.surl + "/user/check/"+$("#phone").val()+"/2?r=" + Math.random(),
 				            	success : function(data) {
 				            		if (data.data) {
-					            		REGISTER.doSubmit();
+					            		//检查邮箱
+				            			$.ajax({
+				            				url : REGISTER.param.surl + "/user/check/"+$("#email").val()+"/3?r=" + Math.random(),
+							            	success : function(data) {
+							            		if (data.data) {
+								            		REGISTER.doSubmit();
+							            		} else {
+							            			alert("此邮箱已经被注册！");
+							            			$("#email").select();
+							            		}
+							            	}
+				            			});
 				            		} else {
 				            			alert("此手机号已经被注册！");
 				            			$("#phone").select();
@@ -182,7 +209,7 @@
 			});
 		},
 		login:function() {
-			 location.href = "/user/showLogin";
+			 location.href = "/page/login";
 			 return false;
 		},
 		reg:function() {
