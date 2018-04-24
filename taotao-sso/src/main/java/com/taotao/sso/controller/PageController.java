@@ -1,6 +1,7 @@
 package com.taotao.sso.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 /*
  * 页面跳转控制的controller，登录注册
@@ -13,7 +14,8 @@ public class PageController {
 		return "register";
 	}
 	@RequestMapping("/login")
-	public String showLogin() {
+	public String showLogin(String redirect,Model model) {
+		model.addAttribute("redirect", redirect);
 		return "login";
 	}
 }
