@@ -100,7 +100,7 @@ public class UserController {
 	/*
 	 * 通过token获取用户信息，是否过期，更新token过期时间
 	 */
-	@RequestMapping(value="/token/{token}",method=RequestMethod.POST)
+	@RequestMapping(value="/token/{token}")//,method=RequestMethod.POST
 	@ResponseBody
 	public Object getUserByToken(@PathVariable String token,String callback) {
 		TaotaoResult result = null;
