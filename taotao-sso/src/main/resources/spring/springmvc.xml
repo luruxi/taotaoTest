@@ -17,9 +17,9 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 由于在web.xml中定义的url拦截形式为“/”表示拦截所有的url请求，包括静态资源例如css、js等。所以需要在springmvc.xml中添加资源映射标签 -->
-	<!-- 目前拦截的是/sso/*,而且这里不用静态文件 -->
-	<!-- <mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
-	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/> -->
+	<mvc:resources location="/WEB-INF/css/" mapping="/css/**"/>
+	<mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
 	<!-- 引入file-upload和common-io这2个包，配置多部件解析器===解决图片上传报错===Expected MultipartHttpServletRequest: is a MultipartResolver configured -->
 	<!-- 定义文件上传解析器 -->
 	<!-- <bean id="multipartResolver"
