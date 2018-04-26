@@ -12,10 +12,13 @@ import com.taotao.portal.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
+	@Value("${SSO_BASE_URL}")
+	public String SSO_BASE_URL;//这里用public 其他地方注入这个类可以调用这个属性变量
+	@Value("${SSO_LOGIN_URL}")
+	public String SSO_LOGIN_URL;//这里用public 其他地方注入这个类可以调用这个属性变量
 	@Value("${SSO_TOKEN_URL}")
 	private String SSO_TOKEN_URL;
-	@Value("${SSO_BASE_URL}")
-	private String SSO_BASE_URL;
+	
 	@Override
 	public TbUser getUserByToken(String token) {
 		try {
