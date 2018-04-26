@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	public TbUser getUserByToken(String token) {
 		try {
 			//从sso单点获取用户信息
-			String json = HttpClientUtil.doGet(SSO_TOKEN_URL+SSO_BASE_URL+"/"+token);
+			String json = HttpClientUtil.doGet(SSO_BASE_URL+SSO_TOKEN_URL+"/"+token);
 			//返回信息数据处理
 			TaotaoResult result = TaotaoResult.formatToPojo(json, TbUser.class);
 			//判断并返回结果
