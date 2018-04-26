@@ -97,4 +97,63 @@ public class CartServiceImpl implements CartService {
 		List<CartItem> cartItemList = getCartItemList(request);
 		return cartItemList;
 	}
+	
+	//更新购物车商品数量
+	@Override
+	public TaotaoResult updateCartItemNum(long itemId, int num, HttpServletRequest request,
+			HttpServletResponse response) {
+		//定义购物车商品对象
+		CartItem cartItem = null;
+		
+		//获取购物车商品列表--cookie
+		List<CartItem> cartItemList = getCartItemList(request);
+		//判断商品列表中是否有该商品
+		for (CartItem cartItem2 : cartItemList) {
+			if(cartItem2.getId() == itemId) {
+				cartItem2.setNum(num);
+				cartItem = cartItem2;
+				break;
+			}
+		}
+		if(cartItem == null) {
+			cartItem = new CartItem();
+			//根据商品id查询商品基本信息
+			String json = HttpClientUtil.doGet(REST_BASE_URL+REST_ITEM_INFO_URL+itemId);
+			//把json数据转成java对象
+			TaotaoResult result = TaotaoResult.formatToPojo(json, TbItem.class);
+			//判断取值
+			if(result.getStatus()==200) {
+				TbItem item = (TbItem) result.getData();
+				cartItem.setId(item.getId());
+				cartItem.setTitle(item.getTitle());
+				cartItem.setImage(item.getImage()==null?"":item.getImage().split(",")[0]);
+				cartItem.setPrice(item.getPrice());
+				cartItem.setNum(num);
+			}
+			//添加到购物车列表
+			cartItemList.add(cartItem);
+		}
+		//把购物车列表写入cookie
+		CookieUtils.setCookie(request, response, "TT_CART", JsonUtils.objectToJson(cartItemList), true);
+		return TaotaoResult.ok();
+	}
+	//删除购物车中的商品
+	@Override
+	public TaotaoResult deleteCartItem(long itemId, HttpServletRequest request, HttpServletResponse response) {
+		//定义购物车商品对象
+		CartItem cartItem = null;
+		
+		//获取购物车商品列表--cookie
+		List<CartItem> cartItemList = getCartItemList(request);
+		//判断商品列表中是否有该商品
+		for (CartItem cartItem2 : cartItemList) {
+			if(cartItem2.getId() == itemId) {
+				cartItemList.remove(cartItem2);
+				break;
+			}
+		}
+		//把购物车列表写入cookie
+		CookieUtils.setCookie(request, response, "TT_CART", JsonUtils.objectToJson(cartItemList), true);
+		return TaotaoResult.ok();
+	}
 }

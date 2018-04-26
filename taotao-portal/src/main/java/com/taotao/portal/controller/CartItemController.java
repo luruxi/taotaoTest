@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.taotao.common.pojo.TaotaoResult;
 import com.taotao.portal.pojo.CartItem;
@@ -40,5 +41,18 @@ public class CartItemController {
 		List<CartItem> list = cartService.getCartItemList(request, response);
 		model.addAttribute("cartList",list);
 		return "cart";
+	}
+	//更新购物车商品数量
+	@RequestMapping("/update/num/{itemId}/{num}")
+	@ResponseBody
+	public TaotaoResult updateCartItemNum(@PathVariable Long itemId,@PathVariable Integer num, HttpServletRequest request, HttpServletResponse response) {
+		TaotaoResult result = cartService.updateCartItemNum(itemId, num, request, response);
+		return result;
+	}
+	//删除购物车中的商品
+	@RequestMapping("/delete/{itemId}")
+	public String deleteCartItem(@PathVariable Long itemId, HttpServletRequest request, HttpServletResponse response) {
+		TaotaoResult result = cartService.deleteCartItem(itemId, request, response);
+		return "redirect:/cart/cart.html";
 	}
 }
