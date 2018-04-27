@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
 		String json = jedisClient.get(REDIS_USER_SESSION_KEY+":"+token);
 		//过期
 		if(StringUtils.isBlank(json)) {
-			TaotaoResult.build(400, "session过期重新登录");
+			return TaotaoResult.build(400, "session过期重新登录");
 		}
 		//不过期，更新过期时间
 		jedisClient.expire(REDIS_USER_SESSION_KEY+":"+token, SSO_SESSION_EXPIRE);
