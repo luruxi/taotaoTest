@@ -65,6 +65,7 @@ public class OrderServiceImpl implements OrderService {
 			//订单明细id
 			long orderDetailId = jedisClient.incr(ORDER_DETAIL_GEN_KEY);
 			orderItem.setId(orderDetailId+"");
+			orderItem.setOrderId(orderId+"");
 			//向订单明细里插入记录
 			orderItemMapper.insert(orderItem);
 		}
@@ -75,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
 		orderShipping.setUpdated(new Date());
 		//向订单物流表里插入记录
 		orderShippingMapper.insert(orderShipping);
-		return null;
+		return TaotaoResult.ok(orderId);
 	}
 
 }
