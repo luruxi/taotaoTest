@@ -23,6 +23,11 @@
 			<mvc:mapping path="/item/**"/>
 			<bean class="com.taotao.portal.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<!-- 拦截订单类请求 -->
+			<mvc:mapping path="/order/**"/>
+			<bean class="com.taotao.portal.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 	
 	<!-- 由于在web.xml中定义的url拦截形式为“/”表示拦截所有的url请求，包括静态资源例如css、js等。所以需要在springmvc.xml中添加资源映射标签 -->
