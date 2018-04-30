@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.taotao.common.utils.ExceptionUtil;
+import com.taotao.pojo.TbUser;
 import com.taotao.portal.pojo.CartItem;
 import com.taotao.portal.pojo.Order;
 import com.taotao.portal.service.CartService;
@@ -41,8 +42,17 @@ public class OrderController {
 	 * 创建订单--成功跳转
 	 */
 	@RequestMapping("/create")
-	public String createOrder(Order order, Model model) {
+	public String createOrder(Order order, HttpServletRequest request, Model model) {
 		try {
+			//从redis-cookie里获取token，根据token通过sso系统单点信息里获取用户信息放到order里
+			//之前点击去结算--走拦截器，通过token获取用户信息已经执行一遍了。想办法通过拦截器把用户信息传递过来
+			//执行这个之前就执行拦截器，这里通过request对象传递用户信息，拦截器时候把用户信息放到request里，中转一下，这里获取request就会带着用户信息
+			//从request中获取user用户信息
+			TbUser user = (TbUser) request.getAttribute("user");
+			//补全order中的用户信息
+			order.setUserId(user.getId());
+			order.setBuyerNick(user.getUsername());
+			//调用服务
 			String orderId = orderService.createOrder(order);
 			model.addAttribute("orderId", orderId);
 			model.addAttribute("payment", order.getPayment());
